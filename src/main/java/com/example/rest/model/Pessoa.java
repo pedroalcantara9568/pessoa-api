@@ -1,13 +1,17 @@
 package com.example.rest.model;
 
+import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Objects;
 
+@Entity
 public class Pessoa implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    @Id
+    @GeneratedValue
     private Long id;
+
     private String primeiroNome;
     private String ultimoNome;
     private String Endereco;
@@ -56,20 +60,4 @@ public class Pessoa implements Serializable {
         this.genero = genero;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Pessoa pessoa = (Pessoa) o;
-        return Objects.equals(id, pessoa.id) &&
-                Objects.equals(primeiroNome, pessoa.primeiroNome) &&
-                Objects.equals(ultimoNome, pessoa.ultimoNome) &&
-                Objects.equals(Endereco, pessoa.Endereco) &&
-                Objects.equals(genero, pessoa.genero);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, primeiroNome, ultimoNome, Endereco, genero);
-    }
 }
