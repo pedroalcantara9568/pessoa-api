@@ -4,20 +4,28 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
+@Table(name = "pessoa")
 public class Pessoa implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 
+    @Column(name = "primeiro_nome", nullable = false)
     private String primeiroNome;
+
+    @Column(name = "ultimo_nome",nullable = false)
     private String ultimoNome;
+
+    @Column(nullable = false)
     private String Endereco;
+
+    @Column(nullable = false)
     private String genero;
 
-    public Pessoa() {
+    protected Pessoa() {
     }
 
     public Long getId() {

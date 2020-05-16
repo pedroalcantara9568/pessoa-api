@@ -2,7 +2,7 @@ package com.example.rest.exception.handler;
 
 
 import com.example.rest.exception.ExceptionResponse;
-import com.example.rest.exception.OperacaoNaoSuportadaException;
+import com.example.rest.exception.ResourceNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -26,7 +26,7 @@ public class RespostaCustomizadaEntityExceptionHandler extends ResponseEntityExc
         return new ResponseEntity<>(exceptionResponse, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
-    @ExceptionHandler(OperacaoNaoSuportadaException.class)
+    @ExceptionHandler(ResourceNotFoundException.class)
     public final ResponseEntity<ExceptionResponse> handleBadResquestException(Exception ex, WebRequest request){
         ExceptionResponse exceptionResponse =
                 new ExceptionResponse(

@@ -1,53 +1,47 @@
 package com.example.rest.service;
 
 import com.example.rest.model.Pessoa;
+import com.example.rest.repository.PessoaRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.ResourceAccessException;
 import java.util.*;
-import java.util.concurrent.atomic.AtomicLong;
 
 @Service
 public class PessoaService {
 
-    private final AtomicLong counter = new AtomicLong();
+
+    @Autowired
+    PessoaRepository repository;
 
     public Pessoa criar(Pessoa pessoa) {
-        return pessoa;
+        return repository.save(pessoa);
     }
 
     public Pessoa atualizar(Pessoa pessoa) {
+        Pessoa entity = repository.findById(pessoa.getId())
+                .orElseThrow(() -> new ResourceAccessException("não encontramos nenhum registro para esse ID"));
 
-        return pessoa;
+        entity.setPrimeiroNome(pessoa.getPrimeiroNome());
+        entity.setUltimoNome(pessoa.getUltimoNome());
+        entity.setEndereco(pessoa.getEndereco());
+        entity.setGenero(pessoa.getGenero());
+        return repository.save(entity);
     }
 
-    public Pessoa procurarPorId(String id){
-        Pessoa pessoa = new Pessoa();
-        pessoa.setId(counter.incrementAndGet());
-        pessoa.setPrimeiroNome("Pedro");
-        pessoa.setUltimoNome("Alcântara");
-        pessoa.setEndereco("Maceió - Alagoas - Brazil");
-        pessoa.setGenero("Masculino");
-        return pessoa;
+    public Pessoa procurarPorId(Long id){
+        return repository.findById(id)
+                .orElseThrow(() -> new ResourceAccessException("não encontramos nenhum registro para esse ID"));
     }
 
     public List<Pessoa> listarTodos(){
-        List<Pessoa> pessoas = new ArrayList<>();
-        for (int i = 0; i < 8 ; i ++){
-            Pessoa pessoa = mockPessoa(i);
-            pessoas.add(pessoa);
-        }
-        return pessoas;
+        return repository.findAll();
     }
 
-    public Pessoa mockPessoa(int i ) {
-        Pessoa pessoa = new Pessoa();
-        pessoa.setId(counter.incrementAndGet());
-        pessoa.setPrimeiroNome("Primeiro Nome"+ i);
-        pessoa.setUltimoNome("Segundo Nome"+ i);
-        pessoa.setEndereco("Endereço"+ i );
-        pessoa.setGenero("Gênero");
-        return pessoa;
-    }
-    public void deletar(String id) {
+    public void deletar(Long id) {
+        Pessoa entity = repository.findById(id)
+                .orElseThrow(() -> new ResourceAccessException("não encontramos nenhum registro para esse ID"));
 
+        repository.delete(entity);
     }
 }

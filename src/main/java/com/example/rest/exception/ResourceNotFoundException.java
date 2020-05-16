@@ -4,12 +4,12 @@ package com.example.rest.exception;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
-@ResponseStatus(HttpStatus.BAD_REQUEST)
-public class OperacaoNaoSuportadaException extends RuntimeException  {
+@ResponseStatus(HttpStatus.NOT_FOUND)
+public class ResourceNotFoundException extends RuntimeException  {
 
     private static final long serialVersionUID = 1L;
 
-    public OperacaoNaoSuportadaException (String exception) {
+    public ResourceNotFoundException(String exception) {
         super(exception);
     }
 
