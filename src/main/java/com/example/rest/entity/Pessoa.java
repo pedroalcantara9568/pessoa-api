@@ -1,4 +1,4 @@
-package com.example.rest.model;
+package com.example.rest.entity;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -25,7 +25,7 @@ public class Pessoa implements Serializable {
     @Column(nullable = false)
     private String genero;
 
-    protected Pessoa() {
+    public Pessoa() {
     }
 
     public Long getId() {

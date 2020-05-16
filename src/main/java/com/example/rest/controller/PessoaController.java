@@ -1,6 +1,7 @@
 package com.example.rest.controller;
 import java.util.*;
-import com.example.rest.model.Pessoa;
+
+import com.example.rest.dto.PessoaDTO;
 import com.example.rest.service.PessoaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -14,22 +15,22 @@ public class PessoaController {
     private PessoaService pessoaService;
 
     @GetMapping
-    public List<Pessoa> listarTodas() {
+    public List<PessoaDTO> listarTodas() {
         return pessoaService.listarTodos();
     }
 
     @GetMapping("/{id}")
-    public Pessoa procurarPorId(@PathVariable("id") Long id) {
+    public PessoaDTO procurarPorId(@PathVariable("id") Long id) {
         return pessoaService.procurarPorId(id);
     }
 
     @PostMapping
-    public Pessoa criar(@RequestBody Pessoa pessoa) {
+    public PessoaDTO criar(@RequestBody PessoaDTO pessoa) {
         return pessoaService.criar(pessoa);
     }
 
     @PutMapping
-    public Pessoa atualizar(@RequestBody Pessoa pessoa) {
+    public PessoaDTO atualizar(@RequestBody PessoaDTO pessoa) {
         return pessoaService.atualizar(pessoa);
     }
 
